@@ -1,0 +1,24 @@
+<form id="regForm">
+    <input type="text" name="name" placeholder="نام و نام خانوادگی" required>
+    <select name="category">
+        <option value="طنز">طنز</option>
+        <option value="آشپزی">آشپزی</option>
+        <option value="موبایل">لوازم جانبی موبایل</option>
+    </select>
+    <input type="text" name="card" placeholder="شماره کارت">
+    <button type="submit">ثبت‌نام</button>
+</form>
+
+<script>
+    document.getElementById('regForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(e.target));
+        await fetch('/api/register', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+        alert('ثبت‌نام شما با موفقیت انجام شد!');
+    });
+</script>
+
