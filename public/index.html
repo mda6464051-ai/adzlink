@@ -1,24 +1,45 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Tahoma, Arial, sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        form { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 320px; display: flex; flex-direction: column; gap: 12px; }
+        h2 { text-align: center; color: #333; }
+        input, select, button { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        button { background-color: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
 <form id="regForm">
+    <h2>ثبت‌نام اینفلوئنسر</h2>
     <input type="text" name="name" placeholder="نام و نام خانوادگی" required>
     <select name="category">
         <option value="طنز">طنز</option>
         <option value="آشپزی">آشپزی</option>
         <option value="موبایل">لوازم جانبی موبایل</option>
     </select>
+    <input type="tel" name="phone" placeholder="شماره موبایل" required>
     <input type="text" name="card" placeholder="شماره کارت">
-    <button type="submit">ثبت‌نام</button>
+    <input type="text" name="shaba" placeholder="شماره شبا">
+    <button type="submit">ثبت اطلاعات</button>
 </form>
 
 <script>
     document.getElementById('regForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target));
-        await fetch('/api/register', {
+        const response = await fetch('/api/register', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         });
-        alert('ثبت‌نام شما با موفقیت انجام شد!');
+        const result = await response.json();
+        alert(result.message);
     });
 </script>
 
+</body>
+</html>
